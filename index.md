@@ -3,8 +3,13 @@
 layout: home
 
 hero:
-  name: "Sunky's Blog"
-
+  text: Sunky's
+  textsuffix: Blog 
+  tagline: ✨ PCIe
+  
+  image:
+    src: /background.svg
+    alt: 背景图
 
 ---
-
+<Home />
