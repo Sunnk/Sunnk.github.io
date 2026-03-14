@@ -33,12 +33,23 @@ export default defineConfig({
         {
           text: 'PIPE 7.1',
           items: [
-            { text: '1. Preface', link: '/PIPE/PIPE_7_1/Preface.md' },
+            { text: '1. Preface', link: '/PIPE/PIPE_7_1/1_Preface.md' },
             { text: '2. Introduction', link: '/PIPE/PIPE_7_1/Introduction.md' },
             { text: 'Four', link: '/config/four' }
           ]
         }
-      ]
+      ],
+
+      '/PIPE/PIPE_5_1/': [
+        {
+          text: 'PIPE 5.1',
+          items: [
+            { text: '2. Introduction', link: '/PIPE/PIPE_5_1/2_Introduction.md' },
+            { text: 'Four', link: '/config/four' }
+          ]
+        }
+      ],
+
     },
 
 
