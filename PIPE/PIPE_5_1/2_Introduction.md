@@ -7,5 +7,5 @@ PIPE`(The PHY Interface for the PCI Express, SATA, USB, DisplayPort and Converge
 
 PIPE 规范的设计目标之一，是加速 PCIe EP、SATA 设备、USB 设备以及 Converged IO 设备的开发进程。本文档定义了一套可供 ASIC 与 endpoint device 厂商基于其进行开发的接口。外设与 IP 厂商可在不受 PCIe、SATA、USB、DisplayPort 或Converged IO PHY 接口相关的高速及模拟电路问题影响的前提下，开展设计开发与验证工作，从而缩短开发周期并降低研发风险。
 
-PIPE 规范为该接口定义了两种时钟方案。第一种方案中，PHY 提供一个时钟信号（PCLK），作为输出时钟来驱动 PIPE 接口。第二种方案中，PCLK 作为输入信号提供给 PHY 的每一条通道。将 PCLK 作为输入提供给 PHY 每条通道的这种方案，是在 PIPE 规范4.1 版本中新增的。**它使得 PHY 外部的控制器或逻辑电路能够更简便地调整 PIPE 接口的时序，以满足芯片实现中的时序要求。**PHY 仅需支持其中一种时序方案即可。这两种时钟方案应分别称为 **“PCLK as PHY Output”和“PCLK as PHY Input”**。DisplayPort 仅支持 **“PCLK as PHY Input”** 这一时钟方案。<font color="red">注意：PCIe 5.0 及后续版本、Converged IO以及 DisplayPort 均不支持 “PCLK as PHY Output” 模式。<font>
+PIPE 规范为该接口定义了两种时钟方案。第一种方案中，PHY 提供一个时钟信号（PCLK），作为输出时钟来驱动 PIPE 接口。第二种方案中，PCLK 作为输入信号提供给 PHY 的每一条通道。将 PCLK 作为输入提供给 PHY 每条通道的这种方案，是在 PIPE 规范4.1 版本中新增的。**它使得 PHY 外部的控制器或逻辑电路能够更简便地调整 PIPE 接口的时序，以满足芯片实现中的时序要求。**PHY 仅需支持其中一种时序方案即可。这两种时钟方案应分别称为 **“PCLK as PHY Output”和“PCLK as PHY Input”**。DisplayPort 仅支持 **“PCLK as PHY Input”** 这一时钟方案。<font color="red">注意：PCIe 5.0 及后续版本、Converged IO以及 DisplayPort 均不支持 “PCLK as PHY Output” 模式。</font>
 
