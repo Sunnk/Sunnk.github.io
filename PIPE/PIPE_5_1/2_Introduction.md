@@ -37,3 +37,44 @@ PCI Express PHY 的一些关键特性包括：
 - 8b/10b 编解码及错误指示。
 - 128b/130b 编解码及错误指示。
 - Reciever detection
+- 发送和接收 Beacon
+- 可配置的Tx Margining、Tx De-emphasis 和 信号Swing
+- Lane Margining at the Receiver
+- 极性(Polarity)
+- Electrical Idle Entry/Exit Detection 
+
+
+## 2.2 USB PHY Layer
+
+USB PHY 负责处理底层 USB 协议与信号，功能包括 analog buffers、receiver detection、data serialization and de-serialization、8b/10b encoding/decoding、128b/132b encoding/decoding（10 GT/s）以及 elastic buffer。该模块的核心作用是将数据时钟域从 USB 速率转换为与 ASIC 中通用逻辑相兼容的时钟域。
+
+
+USB PHY 的一些关键特性包括：
+
+- 标准 PHY 接口支持为USB 链路层提供多种 IP 来源，并为 USB PHY 厂商提供目标接口。
+- 支持 5.0 GT/s 及 / 或 10 GT/s 串行数据传输速率
+- 采用 8 位、16 位或 32 位并行接口收发 USB 数据
+- 便于设备设计者将高速组件集成到单一功能模块中
+- 从 USB 总线的串行数据流中恢复数据与时钟
+- 暂存寄存器，用于缓存发送与接收数据
+- 8b/10b 编解码及错误指示
+- 128b/132b 编解码及错误指示
+- Receiver detection
+- Low Frequency Periodic Signaling (LFPS) 
+
+## 2.3 Converged IO PHY Layer
+Converged IO PHY Layer 负责处理底层的Converged IO 协议与信号，包括数据串并转换、analog buffers以及receiver detection等功能。
+
+Converged IO PHY 的一些关键特性包括：
+- 标准物理层（PHY）接口支持Converged IO 链路层使用多种 IP 资源，并为Converged IO 物理层厂商提供目标接口。
+- 支持 10 GT/s 和 / 或 20 GT/s 串行数据传输速率
+- 实现 40 位并行接口，用于发送和接收融合 IO 数据
+- 从Converged IO 总线上的串行流中恢复数据与时钟
+- 采用保持寄存器暂存发送与接收数据
+- Low Frequency Periodic Signaling (LFPS) 
+
+## 2.4 SATA PHY Layer
+SATA 物理层（PHY）负责处理底层 SATA 协议与信号相关工作，主要包括：analog buffers、数据串行化与解串、8b/10b 编解码以及elastic buffers等功能。该模块的核心作用是将数据的时钟域从 SATA 速率转换为与专用集成电路（ASIC）中通用逻辑相兼容的时钟域。
+SATA IO PHY 的一些关键特性包括：
+
+
