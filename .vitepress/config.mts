@@ -34,8 +34,17 @@ export default defineConfig({
           text: 'PIPE 7.1',
           items: [
             { text: '1. Preface', link: '/PIPE/PIPE_7_1/1_Preface.md' },
-            { text: '2. Introduction', link: '/PIPE/PIPE_7_1/Introduction.md' },
-            { text: 'Four', link: '/config/four' }
+            { text: '2. Introduction', link: '/PIPE/PIPE_7_1/2_Introduction.md' },
+            { text: '3. PHY/MAC Interface', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '4. PCIe, USB, USB4, and DisplayPort PHY Functionality', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '5. SATA PHY Functionality', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '6. PIPE Interface Signal Descriptions', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '7. PIPE Message Bus Address Spaces', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '8. PIPE Operational Behavior', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '9. Sample Operational Sequences', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: '10. Multi-Lane PIPE - PCIe Mode', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
+            { text: 'A. Appendix', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' }
+
           ]
         }
       ],
