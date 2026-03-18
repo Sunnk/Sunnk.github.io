@@ -129,3 +129,13 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
 }
 
+/**
+ * Component: Doc Layout
+ * -------------------------------------------------------------------------- */
+
+@media (min-width: 960px) {
+  .VPDoc.has-aside .content-container,
+  .VPDoc:not(.has-sidebar) .content-container {
+    max-width: 860px;
+  }
+}
