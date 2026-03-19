@@ -74,19 +74,8 @@ export default defineConfig({
         {
           text: 'PIPE 5.1',
           items: [
-            { text: 'PIPE 5.1 首页', link: '/PIPE/PIPE_5_1/PIPE5_1.md' },
-            { text: '0. Front Matter', link: '/PIPE/PIPE_5_1/0_front_matter.md' },
-            { text: '1. Preface', link: '/PIPE/PIPE_5_1/1_preface.md' },
-            { text: '2. Introduction', link: '/PIPE/PIPE_5_1/2_introduction.md' },
-            { text: '3. PHY/MAC Interface', link: '/PIPE/PIPE_5_1/3_phy_mac_interface.md' },
-            { text: '4. PCIe/USB/CIO PHY Functionality', link: '/PIPE/PIPE_5_1/4_pci_express_usb_and_converged_io_phy_functionality.md' },
-            { text: '5. SATA PHY Functionality', link: '/PIPE/PIPE_5_1/5_sata_phy_functionality.md' },
-            { text: '6. PIPE Interface Signal Descriptions', link: '/PIPE/PIPE_5_1/6_pipe_interface_signal_descriptions.md' },
-            { text: '7. PIPE Message Bus Address Spaces', link: '/PIPE/PIPE_5_1/7_pipe_message_bus_address_spaces.md' },
-            { text: '8. PIPE Operational Behavior', link: '/PIPE/PIPE_5_1/8_pipe_operational_behavior.md' },
-            { text: '9. Sample Operational Sequences', link: '/PIPE/PIPE_5_1/9_sample_operational_sequences.md' },
-            { text: '10. Multi-Lane PIPE - PCIe Mode', link: '/PIPE/PIPE_5_1/10_multi_lane_pipe_pci_express_mode.md' },
-            { text: '11. Appendix', link: '/PIPE/PIPE_5_1/11_appendix.md' }
+            { text: '2. Introduction', link: '/PIPE/PIPE_5_1/2_Introduction.md' },
+            { text: 'Four', link: '/config/four' }
           ]
         }
       ],
