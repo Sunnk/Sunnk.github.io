@@ -10,9 +10,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'PIPE', 
         items: [
-          { text: 'PIPE 6.2.1', link: '/PIPE/PIPE_6_2/PIPE6_2.md' },
-          { text: 'PIPE 7.1', link: '/PIPE/PIPE_7_1/PIPE7_1.md' },
-          { text: 'PIPE 5.1', link: '/PIPE/PIPE_5_1/PIPE5_1.md' }
+          { text: 'PIPE 6.2.1', link: '/PIPE/PIPE_6_2/PIPE6_2.md' }
         ]
       },
 
@@ -24,6 +22,17 @@ export default defineConfig({
       copyright: "Copyright@2025 Sunky"
 
     },
+
+        // 文档的最后更新时间
+    lastUpdated: {
+    text: "Updated at",
+    formatOptions: {
+        dateStyle: "full",
+        timeStyle: "medium",
+      },
+    },
+
+
     
 
   sidebar: {

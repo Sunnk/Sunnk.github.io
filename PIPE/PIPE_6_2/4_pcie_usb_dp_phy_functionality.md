@@ -1,17 +1,7 @@
 # 4. PCIe、USB 与 DisplayPort PHY 功能
 
-本章描述多协议 PHY 在 PIPE 下的发送、接收、编码、解码与关键控制路径。
+图 4-1 展示了发射差分对和接收差分对组合的 PHY 功能框图。所示的功能模块并非旨在定义合规 PHY 的内部架构或设计，而是为了辅助信号分组。图 4-2 和图 4-3 分别提供了功能性物理结构图，展示了 Tx+Tx 和 Rx+Rx 组合。请注意，虽然这些图示展示了相锁环（PLL）位于 PHY 中的场景，但如果 PLL 位于 PHY 外部，也存在其他拓扑结构，如第 8.1.1 节所述
 
-## 4.1 Original PIPE 架构
-- 典型并行数据路径组织
-- 与命令/状态接口的时序关系
+``Section 4.1 and Section 4.2 provide descriptions of each of the blocks shown in Figure 4-1, Figure 4-2, Figure 4-3. These blocks represent high-level functionality that is required to exist in the PHY implementation. These descriptions and diagrams describe general architecture and behavioral characteristics. Different implementations are possible and acceptable.``
 
-## 4.2 SerDes 架构
-- 串并转换路径
-- 低引脚数接口下的数据与控制映射
-- 发射机/接收机功能框图解读
-
-## 4.3 关键行为翻译摘要
-- 发射端：并行数据打包、编码、发射控制（如 TxElecIdle、TxDetectRx）。
-- 接收端：CDR、解串、弹性缓存、状态上报（如 RxValid/RxStatus）。
-- 协议差异：PCIe/USB/DP 在训练、低功耗、唤醒信号上的语义差异。
+第 4.1 节和第 4.2 节对图 4-1、图 4-2、图 4-3 中所示的每个区块进行了描述。这些模块代表 PHY 实现中必须存在的高级功能。这些描述和图表描述了一般的架构和行为特征。不同的实现方式是可能且可接受的。
