@@ -8,6 +8,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: '时间线', link: '/updates' },
       { text: 'PIPE', 
         items: [
           { text: 'PIPE 6.2.1', link: '/PIPE/PIPE_6_2/PIPE6_2.md' }
