@@ -3,9 +3,8 @@ title: 更新时间线
 layout: doc
 ---
 
-# 更新时间线
+# 时间线
 
-记录这个站点的重要更新，按时间倒序展示。
 
 <div class="timeline">
   <article class="timeline-item">
@@ -20,27 +19,5 @@ layout: doc
     </div>
   </article>
 
-  <article class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-card">
-      <time>2025-xx-xx</time>
-      <h3>预留：文档更新</h3>
-      <p>
-        这里可以记录你未来新增的章节、修订的文档、以及重要版本变化。
-      </p>
-      <span class="timeline-tag">Docs</span>
-    </div>
-  </article>
 
-  <article class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-card">
-      <time>2025-xx-xx</time>
-      <h3>预留：站点优化</h3>
-      <p>
-        这里可以记录导航调整、页面重构、主题样式升级等体验层面的优化事项。
-      </p>
-      <span class="timeline-tag">Site</span>
-    </div>
-  </article>
 </div>
