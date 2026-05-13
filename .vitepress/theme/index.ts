@@ -3,11 +3,8 @@ import { h, ref, onMounted, watch, defineComponent } from 'vue'
 import type { Theme } from 'vitepress'
 import { useData, useRoute } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import './style.css'
 import { Notice } from '@theojs/lumen'
 import { Underline } from '@theojs/lumen'
-import PcieTlpExplorer from './components/PcieTlpExplorer.vue'
-import PcieTlpParser from './components/PcieTlpParser.vue'
 import type { EnhanceAppContext } from 'vitepress'
 
 const CommentSection = defineComponent({
@@ -66,8 +63,6 @@ export default {
 
   enhanceApp: ({ app }: EnhanceAppContext) => {
     app.component('Home', Underline)
-    app.component('PcieTlpExplorer', PcieTlpExplorer)
-    app.component('PcieTlpParser', PcieTlpParser)
-  }
+  } 
 
 } satisfies Theme

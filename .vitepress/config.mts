@@ -8,13 +8,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: '时间线', link: '/updates' },
-      { text: 'PCIe 工具',
-        items: [
-          { text: 'TLP 字段结构', link: '/PCIe/TLP/' },
-          { text: 'TLP 数据包解析', link: '/PCIe/TLP/parser' }
-        ]
-      },
+      { text: '时间线', link: '/updates' }
 
 
 
