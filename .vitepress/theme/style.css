@@ -387,3 +387,51 @@
     min-width: 660px;
   }
 }
+
+/* Full-width layout for the PCIe TLP structure page */
+.tlp-full-page .VPLocalNav,
+.tlp-full-page .VPSidebar,
+.tlp-full-page .VPDocAside {
+  display: none !important;
+}
+
+.tlp-full-page .VPContent,
+.tlp-full-page .VPContent.has-sidebar {
+  margin: 0;
+  padding-right: 0;
+  padding-left: 0;
+  max-width: none;
+}
+
+.tlp-full-page .VPPage {
+  padding: calc(var(--vp-nav-height) + 1.5rem) clamp(1rem, 2vw, 2rem) 3rem;
+  width: 100%;
+}
+
+.tlp-full-page .vp-doc {
+  max-width: none;
+}
+
+.tlp-full-page .tlp-explorer {
+  width: 100%;
+}
+
+.tlp-full-page .tlp-card__header,
+.tlp-full-page .tlp-bit-axis,
+.tlp-full-page .tlp-words {
+  min-width: 1080px;
+}
+
+.tlp-full-page .tlp-bit-axis,
+.tlp-full-page .tlp-word__bits {
+  grid-template-columns: repeat(32, minmax(28px, 1fr));
+}
+
+@media (min-width: 1280px) {
+  .tlp-full-page .tlp-card__header,
+  .tlp-full-page .tlp-bit-axis,
+  .tlp-full-page .tlp-words {
+    min-width: 0;
+  }
+}
+

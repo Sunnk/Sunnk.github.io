@@ -1,5 +1,11 @@
 ---
 title: PCIe TLP 包结构
+layout: page
+pageClass: tlp-full-page
+sidebar: false
+aside: false
+outline: false
+
 comments: false
 ---
 
