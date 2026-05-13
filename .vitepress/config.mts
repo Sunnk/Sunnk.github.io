@@ -9,6 +9,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: '时间线', link: '/updates' },
+      { text: 'PCIe TLP', link: '/PCIe/TLP/' },
       { text: 'PIPE', 
         items: [
           { text: 'PIPE 6.2.1', link: '/PIPE/PIPE_6_2/PIPE6_2.md' }
@@ -40,6 +41,17 @@ export default defineConfig({
       // 当用户位于 `guide` 目录时，会显示此侧边栏
 
       // 当用户位于 `config` 目录时，会显示此侧边栏
+
+      '/PCIe/TLP/': [
+        {
+          text: 'PCIe TLP',
+          items: [
+            { text: 'TLP 包结构', link: '/PCIe/TLP/' },
+            { text: '字段解释', link: '/PCIe/TLP/fields.md' }
+          ]
+        }
+      ],
+
       '/PIPE/PIPE_7_1/': [
         {
           text: 'PIPE 7.1',
