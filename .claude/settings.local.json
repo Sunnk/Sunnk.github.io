@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL \"https://raw.githubusercontent.com/gotoco/rust_tlplib/main/src/lib.rs\")"
+    ]
+  }
+}

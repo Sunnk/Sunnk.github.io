@@ -9,10 +9,10 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: '时间线', link: '/updates' },
-      { text: 'PCIe TLP', link: '/PCIe/TLP/' },
-      { text: 'PIPE', 
+      { text: 'PCIe 工具',
         items: [
-          { text: 'PIPE 6.2.1', link: '/PIPE/PIPE_6_2/PIPE6_2.md' }
+          { text: 'TLP 字段结构', link: '/PCIe/TLP/' },
+          { text: 'TLP 数据包解析', link: '/PCIe/TLP/parser' }
         ]
       },
 
@@ -21,7 +21,7 @@ export default defineConfig({
     ],
 
     footer:{
-      copyright: "Copyright@2025 Sunky"
+      copyright: "Copyright@2026 Sunky"
 
     },
 
@@ -47,6 +47,7 @@ export default defineConfig({
           text: 'PCIe TLP',
           items: [
             { text: 'TLP 包结构', link: '/PCIe/TLP/' },
+            { text: 'TLP 数据包解析', link: '/PCIe/TLP/parser' },
             { text: '字段解释', link: '/PCIe/TLP/fields.md' }
           ]
         }

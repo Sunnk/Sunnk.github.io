@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vitepress *)",
+      "WebSearch",
+      "WebFetch(domain:blog.csdn.net)",
+      "WebFetch(domain:m.elecfans.com)",
+      "WebFetch(domain:community.cadence.com)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:en.eeworld.com.cn)"
+    ]
+  }
+}

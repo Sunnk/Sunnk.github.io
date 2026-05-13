@@ -224,11 +224,7 @@ const bitRange = (tlpField: TlpField) => {
 
 <template>
   <section class="tlp-explorer" aria-label="PCIe TLP 结构浏览器">
-    <div class="tlp-legend" aria-label="页面说明">
-      <span>字段只展示说明，不再点击跳转</span>
-      <span>每个 DW 固定 32 列，避免错位</span>
-      <span>新增类型只需扩展 packets 静态数据</span>
-    </div>
+
 
     <article v-for="packet in packets" :key="packet.id" :id="packet.id" class="tlp-card">
       <header class="tlp-card__header">
