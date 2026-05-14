@@ -4,6 +4,7 @@ import type { Theme } from 'vitepress'
 import { useData, useRoute } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { Notice } from '@theojs/lumen'
+import PcieTlpFormatViewer from './components/PcieTlpFormatViewer.vue'
 import { Underline } from '@theojs/lumen'
 import type { EnhanceAppContext } from 'vitepress'
 
@@ -63,6 +64,7 @@ export default {
 
   enhanceApp: ({ app }: EnhanceAppContext) => {
     app.component('Home', Underline)
+    app.component('PcieTlpFormatViewer', PcieTlpFormatViewer)
   } 
 
 } satisfies Theme
