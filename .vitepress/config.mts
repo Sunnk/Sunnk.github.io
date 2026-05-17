@@ -8,7 +8,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: '时间线', link: '/updates' }
+      { text: 'TLP工具', link: '/PCIe/TLP/formats.md' }
 
 
 
@@ -40,10 +40,8 @@ export default defineConfig({
         {
           text: 'PCIe TLP',
           items: [
-            { text: 'TLP 包结构', link: '/PCIe/TLP/' },
-            { text: 'TLP 包格式速查', link: '/PCIe/TLP/formats' },
-            { text: 'TLP 数据包解析', link: '/PCIe/TLP/parser' },
-            { text: '字段解释', link: '/PCIe/TLP/fields.md' }
+            { text: 'TLP 包格式速查', link: '/PCIe/TLP/formats.md' },
+
           ]
         }
       ],

@@ -10,7 +10,7 @@ hero:
     src: /background.svg
     alt: 背景图
 
-
+  
 
 ---
 <Home />
