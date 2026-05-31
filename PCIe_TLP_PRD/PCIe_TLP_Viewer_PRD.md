@@ -113,19 +113,6 @@ PCIe TLP（Transaction Layer Packet）格式复杂，涵盖 Memory、I/O、Confi
 
 ### 6.4 配色系统
 
-**FR-COLOR-01:** 字段按以下语义分类着色，浅色模式与深色模式各自定义，确保对比度 ≥ 4.5:1（WCAG AA）：
-
-| 分类 ID | 语义 | 浅色背景 | 深色背景 | 适用字段举例 |
-| --- | --- | --- | --- | --- |
-| `ctrl` | Header Control | `#DBEAFE` (blue-100) | `#1E3A5F` | Fmt, Type, TC, Attr, AT, EP, TD |
-| `id` | Routing / ID | `#EDE9FE` (violet-100) | `#2D1B69` | ReqID, CplID, Tag, BusNum, DevNum, FuncNum, MsgCode |
-| `addr` | Address | `#D1FAE5` (green-100) | `#064E3B` | Address (all), LowerAddr, RegisterNumber |
-| `size` | Size / Count | `#FEF3C7` (amber-100) | `#451A03` | Length, ByteCount, DW BE |
-| `status` | Status / Result | `#FEE2E2` (red-100) | `#450A0A` | Status, BCM, CplID |
-| `data` | Data / Payload | `#F0FDF4` (green-50) | `#052E16` | Data Payload 行 |
-| `prefix` | TLP Prefix 专属 | `#FDF4FF` (fuchsia-50) | `#2E1065` | Prefix Type, PASID Value, TPH bits |
-| `rsvd` | Reserved | `#F3F4F6` (gray-100) | `#1F2937` | R / Rsvd 字段 |
-
 **FR-COLOR-02:** 颜色值通过 CSS 变量定义，在 VitePress 的 `.dark` class 下切换深色值，不依赖 JavaScript 进行主题切换。
 
 **FR-COLOR-03:** 字段名文字颜色在所有背景上保持可读性；Reserved 字段文字使用灰色斜体，其余字段使用正常字重。

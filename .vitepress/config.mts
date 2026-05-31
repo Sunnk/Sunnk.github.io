@@ -9,6 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'TLP Viewer', link: '/tlp-viewer/' },
       { text: 'TLP工具', link: '/PCIe/TLP/formats.md' }
 
 
@@ -43,6 +44,15 @@ export default defineConfig({
           items: [
             { text: 'TLP 包格式速查', link: '/PCIe/TLP/formats.md' },
 
+          ]
+        }
+      ],
+
+      '/tlp-viewer/': [
+        {
+          text: 'PCIe TLP',
+          items: [
+            { text: 'TLP Format Reference', link: '/tlp-viewer/' },
           ]
         }
       ],
