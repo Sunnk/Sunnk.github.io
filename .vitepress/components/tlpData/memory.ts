@@ -19,7 +19,7 @@ const nfmLenLo: TlpField = { name: 'Len', fullName: 'Length[9:0]', category: 'si
 const nfmReqId: TlpField = { name: 'Req ID', fullName: 'Requester ID', category: 'id', segments: [{ byteIndex: 4, msb: 7, lsb: 0 }, { byteIndex: 5, msb: 7, lsb: 0 }], description: 'Bus/Device/Function of the request originator.' }
 const nfmTag: TlpField = { name: 'Tag', fullName: 'Tag[7:0]', category: 'id', segments: [{ byteIndex: 6, msb: 7, lsb: 0 }], description: 'Transaction tag for matching completions.' }
 const nfmLastBE: TlpField = { name: 'LastBE', fullName: 'Last DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 7, lsb: 4 }], description: 'Byte enables for the last DW of the payload.' }
-const nfmFirstBE: TlpField = { name: '1stBE', fullName: 'First DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 3, lsb: 0 }], description: 'Byte enables for the first DW of the payload.' }
+const nfmFirstBE: TlpField = { name: 'FirstBE', fullName: 'First DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 3, lsb: 0 }], description: 'Byte enables for the first DW of the payload.' }
 
 // --- FM shared DW0 fields ---
 const fmType: TlpField = { name: 'Type', fullName: 'Type[7:0]', category: 'ctrl', segments: [{ byteIndex: 0, msb: 7, lsb: 0 }], description: 'TLP type (8-bit in Flit Mode).' }
@@ -172,7 +172,7 @@ const nfmMrdLk64Dw0: DwRow = { ...nfmMrdLk32Dw0 }
 // =============================================
 export const memoryTlpTypes = [
   {
-    id: 'mrd32', label: 'MRd32', group: 'memory' as const,
+    id: 'mrd32', label: 'MRD', group: 'memory' as const,
     nfmDws: [nfmMrd32Dw0, nfmMrd32Dw1, nfmMrd32Dw2],
     fmDws: [fmMrd32Dw0, fmMrd32Dw1, fmMrd32Dw2],
     variants: [
@@ -181,7 +181,7 @@ export const memoryTlpTypes = [
     ]
   },
   {
-    id: 'mrdlk32', label: 'MRdLk32', group: 'memory' as const,
+    id: 'mrdlk32', label: 'MRDLK', group: 'memory' as const,
     nfmDws: [nfmMrdLk32Dw0, nfmMrd32Dw1, nfmMrd32Dw2],
     fmDws: [],
     variants: [
@@ -190,7 +190,7 @@ export const memoryTlpTypes = [
     ]
   },
   {
-    id: 'mwr32', label: 'MWr32', group: 'memory' as const,
+    id: 'mwr32', label: 'MWR', group: 'memory' as const,
     nfmDws: [nfmMwr32Dw0, nfmMwr32Dw1, nfmMwr32Dw2, nfmMwr32Data],
     fmDws: [fmMwr32Dw0, fmMwr32Dw1, fmMwr32Dw2, fmMwr32Data],
     variants: [

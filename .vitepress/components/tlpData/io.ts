@@ -25,7 +25,7 @@ const ioDw1: DwRow = {
     { name: 'Req ID', fullName: 'Requester ID', category: 'id', segments: [{ byteIndex: 4, msb: 7, lsb: 0 }, { byteIndex: 5, msb: 7, lsb: 0 }], description: 'Requester ID.' },
     { name: 'Tag', fullName: 'Tag', category: 'id', segments: [{ byteIndex: 6, msb: 7, lsb: 0 }], description: 'Tag.' },
     { name: 'LastBE', fullName: 'Last DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 7, lsb: 4 }], description: 'Last DW Byte Enable (must be 0 for I/O).' },
-    { name: '1stBE', fullName: 'First DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 3, lsb: 0 }], description: 'First DW Byte Enable.' }
+    { name: 'FirstBE', fullName: 'First DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 3, lsb: 0 }], description: 'First DW Byte Enable.' }
   ]
 }
 const ioDw2: DwRow = {

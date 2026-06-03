@@ -3,42 +3,42 @@
    =========================================== */
 
 :root {
-  /* Control fields (Fmt, Type, TC, Attr, etc.) */
-  --tlp-ctrl-bg: #dbeafe;
-  --tlp-ctrl-fg: #1e40af;
-  --tlp-ctrl-border: #93c5fd;
+  /* Control fields (Fmt, Type, TC, Attr, etc.) — Sky blue */
+  --tlp-ctrl-bg: #8dc290;
+  --tlp-ctrl-fg: #0369a1;
+  --tlp-ctrl-border: #7dd3fc;
 
-  /* ID fields (Requester ID, Tag, Completer ID, etc.) */
+  /* ID fields (Requester ID, Tag, Completer ID, etc.) — Rose pink */
   --tlp-id-bg: #fce7f3;
   --tlp-id-fg: #9d174d;
   --tlp-id-border: #f9a8d4;
 
-  /* Address fields */
+  /* Address fields — Emerald green */
   --tlp-addr-bg: #d1fae5;
   --tlp-addr-fg: #065f46;
   --tlp-addr-border: #6ee7b7;
 
-  /* Size fields (Length, Byte Count, etc.) */
+  /* Size fields (Length, Byte Count, etc.) — Amber */
   --tlp-size-bg: #fef3c7;
   --tlp-size-fg: #92400e;
   --tlp-size-border: #fcd34d;
 
-  /* Status fields (EP, Completion Status, etc.) */
+  /* Status fields (EP, Completion Status, etc.) — Red */
   --tlp-status-bg: #fee2e2;
   --tlp-status-fg: #991b1b;
   --tlp-status-border: #fca5a5;
 
-  /* Data fields */
-  --tlp-data-bg: #e0e7ff;
-  --tlp-data-fg: #3730a3;
-  --tlp-data-border: #a5b4fc;
+  /* Data fields — Teal (distinct from blue/indigo) */
+  --tlp-data-bg: #ccfbf1;
+  --tlp-data-fg: #115e59;
+  --tlp-data-border: #5eead4;
 
-  /* Prefix fields */
-  --tlp-prefix-bg: #ede9fe;
-  --tlp-prefix-fg: #5b21b6;
+  /* Prefix fields — Violet (red-purple, distinct from blue) */
+  --tlp-prefix-bg: #f5f3ff;
+  --tlp-prefix-fg: #6d28d9;
   --tlp-prefix-border: #c4b5fd;
 
-  /* Reserved fields */
+  /* Reserved fields — Neutral gray */
   --tlp-rsvd-bg: #f3f4f6;
   --tlp-rsvd-fg: #9ca3af;
   --tlp-rsvd-border: #d1d5db;
@@ -46,35 +46,53 @@
 
 /* Dark mode overrides */
 .dark {
-  --tlp-ctrl-bg: #1e3a5f;
-  --tlp-ctrl-fg: #93c5fd;
-  --tlp-ctrl-border: #2563eb;
+  /* Sky blue */
+  --tlp-ctrl-bg: #0c4a6e;
+  --tlp-ctrl-fg: #7dd3fc;
+  --tlp-ctrl-border: #0284c7;
 
+  /* Rose pink */
   --tlp-id-bg: #4a1942;
   --tlp-id-fg: #f9a8d4;
   --tlp-id-border: #db2777;
 
+  /* Emerald green */
   --tlp-addr-bg: #064e3b;
   --tlp-addr-fg: #6ee7b7;
   --tlp-addr-border: #059669;
 
+  /* Amber */
   --tlp-size-bg: #451a03;
   --tlp-size-fg: #fcd34d;
   --tlp-size-border: #d97706;
 
+  /* Red */
   --tlp-status-bg: #450a0a;
   --tlp-status-fg: #fca5a5;
   --tlp-status-border: #dc2626;
 
-  --tlp-data-bg: #1e1b4b;
-  --tlp-data-fg: #a5b4fc;
-  --tlp-data-border: #4f46e5;
+  /* Teal (distinct from blue) */
+  --tlp-data-bg: #134e4a;
+  --tlp-data-fg: #5eead4;
+  --tlp-data-border: #14b8a6;
 
-  --tlp-prefix-bg: #2e1065;
+  /* Violet (red-purple, distinct from blue) */
+  --tlp-prefix-bg: #3b0764;
   --tlp-prefix-fg: #c4b5fd;
   --tlp-prefix-border: #7c3aed;
 
+  /* Neutral gray */
   --tlp-rsvd-bg: #1f2937;
   --tlp-rsvd-fg: #6b7280;
   --tlp-rsvd-border: #4b5563;
+}
+
+/* Let the TLP viewer behave like a full-page tool below the top nav. */
+.VPPage:has(.tlp-viewer),
+.VPPage:has(.tlp-viewer) > .vp-doc {
+  width: 100%;
+  min-height: calc(100vh - var(--vp-nav-height, 64px));
+  margin: 0;
+  padding: 0;
+  max-width: none;
 }

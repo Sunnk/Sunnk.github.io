@@ -24,7 +24,8 @@ export interface DwRow {
 export interface TlpVariant {
   id: string
   label: string
-  dws: DwRow[]
+  nfmDws: DwRow[]
+  fmDws?: DwRow[]
 }
 
 export type TlpGroup = 'memory' | 'io' | 'config' | 'message' | 'completion' | 'atomicop' | 'prefix'

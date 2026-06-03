@@ -7,11 +7,11 @@ const props = defineProps<{
   field: TlpField
   label?: string
   totalBits: number
+  selected?: boolean
 }>()
 
 defineEmits<{
-  mouseenter: [e: MouseEvent, field: TlpField]
-  mouseleave: []
+  click: [field: TlpField]
 }>()
 
 const widthPercent = computed(() => (computeFieldBitWidth(props.field) / props.totalBits) * 100)
@@ -24,10 +24,9 @@ const bitRange = computed(() => computeFieldBitRange(props.field.segments))
 <template>
   <div
     class="field-cell"
-    :class="[`cat-${category}`, { reserved: isReserved }]"
+    :class="[`cat-${category}`, { reserved: isReserved, selected }]"
     :style="{ width: widthPercent + '%' }"
-    @mouseenter="$emit('mouseenter', $event, field)"
-    @mouseleave="$emit('mouseleave')"
+    @click="$emit('click', field)"
   >
     <div class="field-content">
       <span class="field-label">{{ displayName }}</span>
@@ -38,21 +37,26 @@ const bitRange = computed(() => computeFieldBitRange(props.field.segments))
 
 <style scoped>
 .field-cell {
-  height: 40px;
+  min-height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: filter 0.15s;
+  border-radius: 0;
   background: var(--field-bg);
   color: var(--field-fg);
   border: 1px solid var(--field-border);
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
   overflow: hidden;
   box-sizing: border-box;
+  box-shadow: none;
 }
-.field-cell:hover {
-  filter: brightness(0.88);
+.field-cell:last-child {
+  border-right: 0;
+}
+.field-cell.selected {
+  box-shadow: inset 0 0 0 2px currentColor;
 }
 .field-content {
   display: flex;
@@ -60,13 +64,13 @@ const bitRange = computed(() => computeFieldBitRange(props.field.segments))
   align-items: center;
   justify-content: center;
   gap: 1px;
-  padding: 0 3px;
+  padding: 2px 4px;
   width: 100%;
   pointer-events: none;
 }
 .field-label {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -74,13 +78,14 @@ const bitRange = computed(() => computeFieldBitRange(props.field.segments))
   line-height: 1.2;
 }
 .field-bits {
+  display: block;
   font-size: 9px;
   font-family: var(--vp-font-family-mono);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  opacity: 0.7;
+  opacity: 0.72;
   line-height: 1.2;
 }
 

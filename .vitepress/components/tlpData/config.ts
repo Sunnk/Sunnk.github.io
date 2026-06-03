@@ -27,7 +27,7 @@ const nfmCfgDw1: DwRow = {
     { name: 'Req ID', fullName: 'Requester ID', category: 'id', segments: [{ byteIndex: 4, msb: 7, lsb: 0 }, { byteIndex: 5, msb: 7, lsb: 0 }], description: 'Requester ID.' },
     { name: 'Tag', fullName: 'Tag', category: 'id', segments: [{ byteIndex: 6, msb: 7, lsb: 0 }], description: 'Transaction Tag.' },
     { name: 'LastBE', fullName: 'Last DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 7, lsb: 4 }], description: 'Must be 0000b for Config.' },
-    { name: '1stBE', fullName: 'First DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 3, lsb: 0 }], description: 'Byte enables for Config data.' }
+    { name: 'FirstBE', fullName: 'First DW Byte Enable', category: 'ctrl', segments: [{ byteIndex: 7, msb: 3, lsb: 0 }], description: 'Byte enables for Config data.' }
   ]
 }
 

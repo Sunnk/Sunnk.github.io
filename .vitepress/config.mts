@@ -9,8 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'TLP Viewer', link: '/tlp-viewer/' },
-      { text: 'TLP工具', link: '/PCIe/TLP/formats.md' }
+      { text: 'TLP Viewer', link: '/tlp-viewer/' }
 
 
 
@@ -38,74 +37,8 @@ export default defineConfig({
 
       // 当用户位于 `config` 目录时，会显示此侧边栏
 
-      '/PCIe/TLP/': [
-        {
-          text: 'PCIe TLP',
-          items: [
-            { text: 'TLP 包格式速查', link: '/PCIe/TLP/formats.md' },
 
-          ]
-        }
-      ],
 
-      '/tlp-viewer/': [
-        {
-          text: 'PCIe TLP',
-          items: [
-            { text: 'TLP Format Reference', link: '/tlp-viewer/' },
-          ]
-        }
-      ],
-
-      '/PIPE/PIPE_7_1/': [
-        {
-          text: 'PIPE 7.1',
-          items: [
-            { text: '1. Preface', link: '/PIPE/PIPE_7_1/1_Preface.md' },
-            { text: '2. Introduction', link: '/PIPE/PIPE_7_1/2_Introduction.md' },
-            { text: '3. PHY/MAC Interface', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '4. PCIe, USB, USB4, and DisplayPort PHY Functionality', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '5. SATA PHY Functionality', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '6. PIPE Interface Signal Descriptions', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '7. PIPE Message Bus Address Spaces', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '8. PIPE Operational Behavior', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '9. Sample Operational Sequences', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: '10. Multi-Lane PIPE - PCIe Mode', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' },
-            { text: 'A. Appendix', link: '/PIPE/PIPE_7_1/3_phymac_interface.md' }
-
-          ]
-        }
-      ],
-
-      '/PIPE/PIPE_6_2/': [
-        {
-          text: 'PIPE 6.2.1',
-          items: [
-            { text: 'PIPE 6.2.1', link: '/PIPE/PIPE_6_2/PIPE6_2.md' },
-            { text: '1. Preface', link: '/PIPE/PIPE_6_2/1_Preface.md' },
-            { text: '2. Introduction', link: '/PIPE/PIPE_6_2/2_Introduction.md' },
-            { text: '3. PHY/MAC Interface', link: '/PIPE/PIPE_6_2/3_phymac_interface.md' },
-            { text: '4. PCIe/USB/DP PHY Functionality', link: '/PIPE/PIPE_6_2/4_pcie_usb_dp_phy_functionality.md' },
-            { text: '5. SATA PHY Functionality', link: '/PIPE/PIPE_6_2/5_sata_phy_functionality.md' },
-            { text: '6. PIPE Interface Signal Descriptions', link: '/PIPE/PIPE_6_2/6_pipe_interface_signal_descriptions.md' },
-            { text: '7. PIPE Message Bus Address Spaces', link: '/PIPE/PIPE_6_2/7_pipe_message_bus_address_spaces.md' },
-            { text: '8. PIPE Operational Behavior', link: '/PIPE/PIPE_6_2/8_pipe_operational_behavior.md' },
-            { text: '9. Sample Operational Sequences', link: '/PIPE/PIPE_6_2/9_sample_operational_sequences.md' },
-            { text: '10. Multi-Lane PIPE - PCIe Mode', link: '/PIPE/PIPE_6_2/10_multi_lane_pipe_pcie_mode.md' },
-            { text: 'A. Appendix', link: '/PIPE/PIPE_6_2/A_appendix_mapping.md' }
-          ]
-        }
-      ],
-
-      '/PIPE/PIPE_5_1/': [
-        {
-          text: 'PIPE 5.1',
-          items: [
-            { text: '2. Introduction', link: '/PIPE/PIPE_5_1/2_Introduction.md' },
-            { text: 'Four', link: '/config/four' }
-          ]
-        }
-      ],
 
     },
 

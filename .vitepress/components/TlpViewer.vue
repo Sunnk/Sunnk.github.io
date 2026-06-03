@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import DwGrid from './DwGrid.vue'
 import { allTlpTypes, navGroups } from './tlpData'
-import type { TlpDefinition, DwRow } from './tlpData'
+import type { DwRow } from './tlpData'
 
-// --- State ---
 const selectedTypeId = ref<string>('')
 const selectedVariantId = ref<string>('')
 const mode = ref<'nfm' | 'fm'>('nfm')
-const expandedGroup = ref<string>('')
+const activeGroupId = ref<string>('')
 
-// --- Derived ---
 const selectedType = computed(() =>
   allTlpTypes.find(t => t.id === selectedTypeId.value) || null
 )
@@ -40,7 +38,7 @@ const currentLabel = computed(() => {
   if (!selectedType.value) return ''
   let label = selectedType.value.label
   if (hasVariants.value && selectedVariant.value) {
-    label += ' — ' + selectedVariant.value.label
+    label += ' - ' + selectedVariant.value.label
   }
   return label
 })
@@ -54,31 +52,20 @@ const hasFmData = computed(() => {
   return !!(t.fmDws?.length)
 })
 
-// --- Navigation ---
-function toggleGroup(groupId: string) {
-  if (expandedGroup.value === groupId) {
-    expandedGroup.value = ''
-  } else {
-    expandedGroup.value = groupId
-  }
+function selectGroup(groupId: string) {
+  activeGroupId.value = groupId
 }
 
 function selectType(typeId: string) {
   const t = allTlpTypes.find(t => t.id === typeId)
   if (!t) return
   selectedTypeId.value = typeId
-  // Default variant
-  if (t.variants?.length) {
-    selectedVariantId.value = t.variants[0].id
-  } else {
-    selectedVariantId.value = ''
-  }
-  // Switch to NFM if FM not available
+  activeGroupId.value = t.group
+  selectedVariantId.value = t.variants?.length ? t.variants[0].id : ''
   if (mode.value === 'fm' && !currentDws.value.length) {
     mode.value = 'nfm'
   }
   updateHash()
-  expandedGroup.value = ''
 }
 
 function selectVariant(variantId: string) {
@@ -86,11 +73,6 @@ function selectVariant(variantId: string) {
   updateHash()
 }
 
-function getGroupForType(typeId: string) {
-  return allTlpTypes.find(t => t.id === typeId)?.group || ''
-}
-
-// --- URL hash ---
 function updateHash() {
   if (selectedTypeId.value) {
     window.history.replaceState(null, '', '#' + selectedTypeId.value)
@@ -101,10 +83,8 @@ function loadFromHash() {
   const hash = window.location.hash.slice(1)
   if (hash && allTlpTypes.find(t => t.id === hash)) {
     selectType(hash)
-    expandedGroup.value = getGroupForType(hash)
   } else if (allTlpTypes.length) {
     selectType(allTlpTypes[0].id)
-    expandedGroup.value = allTlpTypes[0].group
   }
 }
 
@@ -113,56 +93,31 @@ onMounted(() => {
   window.addEventListener('hashchange', loadFromHash)
 })
 
-// Initialize with first type
 if (!selectedTypeId.value && allTlpTypes.length) {
   selectedTypeId.value = allTlpTypes[0].id
-  if (allTlpTypes[0].variants?.length) {
-    selectedVariantId.value = allTlpTypes[0].variants[0].id
-  }
-  expandedGroup.value = allTlpTypes[0].group
+  selectedVariantId.value = allTlpTypes[0].variants?.length ? allTlpTypes[0].variants[0].id : ''
+  activeGroupId.value = allTlpTypes[0].group
 }
 </script>
 
 <template>
   <div class="tlp-viewer">
-    <!-- Page Header -->
-    <div class="viewer-header">
-      <span class="spec-badge">PCIe 5.0 / 6.0</span>
-      <div class="mode-toggle">
-        <button
-          :class="{ active: mode === 'nfm' }"
-          @click="mode = 'nfm'"
-        >NFM</button>
-        <button
-          :class="{ active: mode === 'fm', disabled: !hasFmData }"
-          @click="hasFmData && (mode = 'fm')"
-          :title="hasFmData ? '' : 'FM data not available for this type'"
-        >FM</button>
+    <aside class="tlp-sidebar">
+      <div class="sidebar-title">
+        <strong>PCIe TLP 包格式查询</strong>
+        <span>按 DW 展示一次完整字段布局</span>
       </div>
-    </div>
 
-    <!-- Small screen hint -->
-    <div class="small-screen-hint">
-      此工具建议在桌面端或横屏模式下使用（最低 768px）
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="tlp-nav">
-      <div class="nav-groups">
-        <div
-          v-for="group in navGroups"
-          :key="group.id"
-          class="nav-group"
-        >
+      <nav class="tlp-nav">
+        <section v-for="group in navGroups" :key="group.id" class="nav-section">
           <button
             class="group-btn"
-            :class="{ expanded: expandedGroup === group.id }"
-            @click="toggleGroup(group.id)"
+            :class="{ active: activeGroupId === group.id }"
+            @click="selectGroup(group.id)"
           >
             {{ group.label }}
-            <span class="arrow">{{ expandedGroup === group.id ? '▲' : '▼' }}</span>
           </button>
-          <div v-if="expandedGroup === group.id" class="group-dropdown">
+          <div v-show="activeGroupId === group.id" class="type-panel">
             <button
               v-for="t in group.types"
               :key="t.id"
@@ -173,222 +128,330 @@ if (!selectedTypeId.value && allTlpTypes.length) {
               {{ t.label }}
             </button>
           </div>
+        </section>
+      </nav>
+
+      <div class="sidebar-note">
+        <strong>说明</strong>
+        <span>单击字段可查看详情。</span>
+      </div>
+    </aside>
+
+    <div class="small-screen-hint">
+      此工具建议在桌面端或横屏模式下使用（最小 900px）。
+    </div>
+
+    <main v-if="selectedType" class="viewer-content">
+      <header class="viewer-toolbar">
+        <div class="current-type">
+          <span>当前类型:</span>
+          <strong>{{ currentLabel }}</strong>
+        </div>
+
+        <div class="header-actions">
+          <div v-if="hasVariants" class="variant-bar" aria-label="地址格式">
+            <button
+              v-for="v in selectedType!.variants"
+              :key="v.id"
+              class="variant-btn"
+              :class="{ active: selectedVariantId === v.id }"
+              @click="selectVariant(v.id)"
+            >
+              {{ v.label }}
+            </button>
+          </div>
+          <div class="mode-toggle">
+            <button
+              :class="{ active: mode === 'nfm' }"
+              @click="mode = 'nfm'"
+            >Non-Flit Mode</button>
+            <button
+              :class="{ active: mode === 'fm', disabled: !hasFmData }"
+              :title="hasFmData ? '' : '当前类型暂无 Flit Mode 数据'"
+              @click="hasFmData && (mode = 'fm')"
+            >Flit Mode</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="grid-heading">
+        <span>展示格式：按 DW（32 bits）</span>
+        <div class="legend">
+          <span class="legend-item ctrl">Header</span>
+          <span class="legend-item addr">Address</span>
+          <span class="legend-item data">Data</span>
+          <span class="legend-item status">Digest</span>
+          <span class="legend-item rsvd">其他</span>
         </div>
       </div>
-    </nav>
 
-    <!-- Content Area -->
-    <div v-if="selectedType" class="viewer-content">
-      <!-- Current type label -->
-      <div class="current-type">
-        <span class="type-name">{{ currentLabel }}</span>
-        <span v-if="mode === 'fm'" class="mode-badge">Flit Mode</span>
-      </div>
-
-      <!-- Variant Tab Bar -->
-      <div v-if="hasVariants" class="variant-bar">
-        <button
-          v-for="v in selectedType!.variants"
-          :key="v.id"
-          class="variant-btn"
-          :class="{ active: selectedVariantId === v.id }"
-          @click="selectVariant(v.id)"
-        >
-          {{ v.label }}
-        </button>
-      </div>
-
-      <!-- DW Grid -->
       <DwGrid :rows="currentDws" />
-    </div>
+    </main>
   </div>
 </template>
 
 <style scoped>
 .tlp-viewer {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  min-height: calc(100vh - var(--vp-nav-height, 64px));
+  margin: 0;
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  --tlp-surface: color-mix(in srgb, var(--vp-c-bg-soft) 82%, transparent);
+  --tlp-surface-strong: color-mix(in srgb, var(--vp-c-bg-elv) 92%, transparent);
+  --tlp-line: color-mix(in srgb, var(--vp-c-divider) 78%, transparent);
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--vp-c-bg);
+  box-shadow: none;
 }
 
-/* Header */
-.viewer-header {
+.tlp-sidebar {
+  min-height: 100%;
+  padding: 16px 12px;
+  color: #dbeafe;
+  background: #10243a;
+}
+.sidebar-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px 4px 16px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+}
+.sidebar-title strong {
+  color: #f8fafc;
+  font-size: 16px;
+  line-height: 1.3;
+}
+.sidebar-title span,
+.sidebar-note span {
+  color: #9fb4ce;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.tlp-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 14px;
+}
+.nav-section {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  padding-bottom: 10px;
+}
+.group-btn,
+.type-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  text-align: left;
+  cursor: pointer;
+}
+.group-btn {
+  padding: 5px 7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.group-btn.active {
+  color: #ffffff;
+  box-shadow: inset 3px 0 0 #60a5fa;
+}
+.type-panel {
+  display: grid;
+  gap: 3px;
+  margin-top: 5px;
+}
+.type-btn {
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.type-btn:hover {
+  background: rgba(59, 130, 246, 0.14);
+  color: #ffffff;
+}
+.type-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: inset 3px 0 0 #60a5fa;
+}
+.sidebar-note {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 18px;
+  padding: 12px 8px 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.24);
+}
+.sidebar-note strong {
+  color: #f8fafc;
+  font-size: 12px;
+}
+
+.viewer-content {
+  min-width: 0;
+  padding: 16px 18px 22px;
+  background: #ffffff;
+}
+.viewer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 38px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.current-type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #334155;
+  font-size: 13px;
+}
+.current-type strong {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.2;
+}
+.header-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
-.spec-badge {
-  font-size: 12px;
-  color: var(--vp-c-text-2);
-  background: var(--vp-c-default-soft);
-  padding: 4px 10px;
-  border-radius: 12px;
-}
-.mode-toggle {
+.mode-toggle,
+.variant-bar {
   display: flex;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
   overflow: hidden;
 }
-.mode-toggle button {
-  padding: 4px 12px;
-  border: none;
-  background: transparent;
-  color: var(--vp-c-text-2);
-  font-size: 12px;
+.mode-toggle button,
+.variant-btn {
+  min-height: 28px;
+  padding: 5px 10px;
+  border: 0;
+  border-right: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s;
 }
-.mode-toggle button.active {
-  background: var(--vp-c-brand-1);
-  color: #fff;
+.mode-toggle button:last-child,
+.variant-btn:last-child {
+  border-right: 0;
+}
+.mode-toggle button.active,
+.variant-btn.active {
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 .mode-toggle button.disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-/* Navigation Bar */
-.tlp-nav {
-  position: sticky;
-  top: var(--vp-nav-height, 64px);
-  z-index: 99;
-  background: var(--vp-nav-bg-color, var(--vp-c-bg));
-  border-bottom: 1px solid var(--vp-c-divider);
-  padding: 8px 0;
-  margin-bottom: 20px;
-}
-.nav-groups {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-.nav-group {
-  position: relative;
-}
-.group-btn {
-  padding: 6px 14px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
-  background: transparent;
-  color: var(--vp-c-text-1);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
+.grid-heading {
   display: flex;
   align-items: center;
-  gap: 6px;
-}
-.group-btn:hover {
-  background: var(--vp-c-default-soft);
-}
-.group-btn.expanded {
-  background: var(--vp-c-default-soft);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.arrow {
-  font-size: 10px;
-  opacity: 0.6;
-}
-.group-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 8px;
-  background: var(--vp-c-bg-elv);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  z-index: 101;
-  min-width: 120px;
-}
-.type-btn {
-  padding: 5px 12px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--vp-c-text-1);
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0 8px;
+  color: #334155;
   font-size: 13px;
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
 }
-.type-btn:hover {
-  background: var(--vp-c-default-soft);
-}
-.type-btn.active {
-  background: var(--vp-c-brand-1);
-  color: #fff;
-}
-
-/* Content */
-.viewer-content {
-  margin-top: 8px;
-}
-.current-type {
+.legend {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-.type-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-}
-.mode-badge {
+  gap: 12px;
+  color: #64748b;
   font-size: 11px;
-  color: var(--vp-c-text-2);
-  background: var(--vp-c-warning-soft);
-  padding: 2px 8px;
-  border-radius: 10px;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.legend-item::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: #e0f2fe;
+  border: 1px solid #7dd3fc;
+}
+.legend-item.addr::before {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+}
+.legend-item.data::before {
+  background: #ccfbf1;
+  border-color: #5eead4;
+}
+.legend-item.status::before {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+.legend-item.rsvd::before {
+  background: #f3f4f6;
+  border-color: #d1d5db;
 }
 
-/* Variant Bar */
-.variant-bar {
-  display: flex;
-  gap: 2px;
-  margin-bottom: 16px;
-  border-bottom: 2px solid var(--vp-c-divider);
-  padding-bottom: 0;
+:global(.VPDoc.has-aside .content-container),
+:global(.VPDoc:not(.has-sidebar) .content-container) {
+  max-width: none;
 }
-.variant-btn {
-  padding: 6px 16px;
-  border: none;
-  background: transparent;
-  color: var(--vp-c-text-2);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
+:global(.VPDoc:has(.tlp-viewer)) {
+  padding: 0;
 }
-.variant-btn:hover {
-  color: var(--vp-c-text-1);
+:global(.VPDoc:has(.tlp-viewer) .container) {
+  max-width: none;
+  margin: 0;
 }
-.variant-btn.active {
-  color: var(--vp-c-brand-1);
-  border-bottom-color: var(--vp-c-brand-1);
-  font-weight: 600;
+:global(.VPDoc:has(.tlp-viewer) .content) {
+  max-width: none;
+  padding: 0;
+}
+:global(.VPDoc:has(.tlp-viewer) .content-container) {
+  max-width: none;
+}
+:global(.vp-doc:has(.tlp-viewer)) {
+  min-height: calc(100vh - var(--vp-nav-height, 64px));
+}
+:global(.vp-doc .tlp-viewer h1),
+:global(.vp-doc .tlp-viewer h2),
+:global(.vp-doc .tlp-viewer h3),
+:global(.vp-doc .tlp-viewer p) {
+  margin: 0;
 }
 
-/* Responsive: small screens */
 .small-screen-hint {
   display: none;
 }
-@media (max-width: 767px) {
-  .tlp-nav, .viewer-content {
+@media (max-width: 899px) {
+  .tlp-viewer {
+    display: block;
+    border: 0;
+    box-shadow: none;
+  }
+  .tlp-sidebar,
+  .viewer-content {
     display: none;
   }
   .small-screen-hint {

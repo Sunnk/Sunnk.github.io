@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
-永远使用中文思考和展示
+永远使用中文思考和展示，不要立即开始行动，向我提问，直到你觉得有把握才开始
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
 ## 1. Think Before Coding
