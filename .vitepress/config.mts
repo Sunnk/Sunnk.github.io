@@ -4,14 +4,11 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Sunky's Blog",
   description: "Sunky's Blog",
-  srcExclude: ['**/TLP.md'],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'TLP Viewer', link: '/tlp-viewer/' }
-
-
+      { text: 'NVLINK', link: '/Interconnect/nvlink/nvlink.md' },
 
     ],
 
@@ -34,6 +31,15 @@ export default defineConfig({
 
   sidebar: {
       // 当用户位于 `guide` 目录时，会显示此侧边栏
+      '/Interconnect/nvlink/': [
+        {
+          text: 'NVLink',
+          items: [
+            { text: 'NVLink 1.0', link: '/Interconnect/nvlink/nvlink_1.md' }
+          ]
+        }
+      ]
+
 
       // 当用户位于 `config` 目录时，会显示此侧边栏
 

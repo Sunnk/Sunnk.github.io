@@ -7,4 +7,3 @@ cache
 .temp
 *.local
 .claude
-.vitepress/components/tlpData/fieldDocs.generated.ts

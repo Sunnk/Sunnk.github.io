@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(curl -sL \"https://raw.githubusercontent.com/gotoco/rust_tlplib/main/src/lib.rs\")"
+      "Bash(curl -sL \"https://raw.githubusercontent.com/gotoco/rust_tlplib/main/src/lib.rs\")",
+      "Bash(node scripts/build-field-docs.mjs)",
+      "Bash(npx vue-tsc *)"
     ]
   }
 }

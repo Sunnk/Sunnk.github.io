@@ -1,12 +1,8 @@
 {
   "devDependencies": {
-    "marked": "^18.0.4",
     "vitepress": "^2.0.0-alpha.16"
   },
   "scripts": {
-    "build:fields": "node scripts/build-field-docs.mjs",
-    "predocs:dev": "npm run build:fields",
-    "predocs:build": "npm run build:fields",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
