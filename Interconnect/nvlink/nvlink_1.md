@@ -23,10 +23,6 @@
 ![alt text](image-7.png)
 
 
-下面是 Pascal GP100 的 die shot，从 GP100 白皮书中的框图推测，其中左上角部分应该就是 4 组 NVLink
-
-![alt text](image-8.png)
-
 
 
 ## Transaction Layer
@@ -34,8 +30,7 @@
 TL 层负责处理 synchronization、 link flow control、 multiple link aggregate，同时还支持 virtual channel。
 
 
-NVLink 使用可变长度的数据包，其包结构如下所示，128byte 的 Header Flit 中包括 CRC、DL header、TL Header。Address Extension Flit中包含了多个命令可能使用到的信息。Byte Enable Flit根据需要选择是否添加，以及可选的 0-16 个 data payload flits。
-
+NVLink 使用可变长度的数据包，其包结构如下所示，128bit 的 Header Flit 中包括 CRC、DL header、TL Header。Address Extension Flit中包含了多个命令可能使用到的信息。Byte Enable Flit根据需要选择是否添加，以及可选的 0-16 个 data payload flits。因此，一个数据包的大小可能是 1-18 个 Flit 。
 
 Packet header中会包括 packet length的信息
 
@@ -61,23 +56,105 @@ CRC 的计算包括当前的 header、之前的 payload （用于尽快释放pac
 和一般的 serdes 类似，物理层负责 deskew（across all eight lanes），framing (figuring
 out the start of each packet), scrambling/descrambling (to ensure adequate bit transition density to support clock recovery), polarity inversion, lane reversal，并将数据交给数据链路层
 
+在芯片（P100）内部，数据以 1.25 GHz的速率从 PHY 传输至 NVLink 控制器
+
+
 NVLink 其他的参数如下
 
 - Embedded clock 
 - 86 Ohm terminated
 - DC coupled
 - Bit Error Rate 1e-12
-- -22dB insertion loss (15'')
+- -22dB insertion loss (PCB 15'')
 - Polarity inversion
 - Lane reveral
 
 
+## Example
 
+下图给出了一个简单的读请求示例，Requestor 发送 128bit 的读请求，包括有 25 bit CRC、83 bit Read req header、20 bit DL Header，Target 响应包括 128B Read Resp Header，和 4 个 Flit 的Data Payload。
 
-## EFFICIENCY
+![alt text](image-12.png)
 
-受 Header、CRC 等的影响，不同 Data Transfer Size下的效率如下所示
+## Efficiency
+
+受 Header、CRC 、 ACK 等的影响，不同 Data Transfer Size下的效率不同，如下所示，256B 时可以达到约 94% 的效率
 
 ![alt text](image-11.png)
 
+
+## Topology
+
+NVIDIA 给出了通过 NVLink 进行连接的多种拓扑方式，包括有 GPU - GPU 之间的
+
+
+![alt text](image-22.png)
+
+![alt text](image-23.png)
+
+![alt text](image-18.png)
+
+![alt text](image-19.png)
+
+
+CPU - GPU 之间的
+
+![alt text](image-20.png)
+
+![alt text](image-21.png)
+
+
+
+## P100
+
+P100 是 NVIDIA 推出的首个搭载 NVLink 的显卡，其结构如下。最下方包括 4 个 NVLink，挂在 High-Speed Hub 上
+
+
+![alt text](image-15.png)
+
+
+
+下面是 Pascal P100 的 die shot，从 P100 白皮书中的框图推测，其中左上角部分应该就是 4 组 NVLink
+
+![alt text](image-8.png)
+
+
+P100 配备了两个 400 引脚的高速连接器：其中一个用于模块的 NVLink 信号输入/输出，另一个则用于提供电源、控制信号及 PCIe I/O 接口。Tesla P100 加速器可安装在大型 GPU 载板或系统主板上；通过 GPU 载板，它可以与其他 P100 加速器或 PCIe 控制器建立相应的连接。
+
+![alt text](image-16.png)
+
+
+在 GPU 架构接口层面，NVLink 控制器通过一个名为High-Speed Hub（HSHUB）的模块与 GPU 内部进行通信。HSHUB 可直接访问 GPU-wide crossbar（crossbar）及其他系统组件（如 High-Speed Copy Engines， HSCE），从而支持 NVLink 以最大速率在 GPU 之间进行数据传输。
+
+![alt text](image-17.png)
+
+
+
+
+## DGX-1
+
+DGX-1 是 NVIDIA 首个推出的用于深度学习的系统，它由 8 个 Tesla P100 组成，这些 GPU 通过 hybrid cube-mesh 的拓扑方式、使用 NVLink 进行连接，如下图所示
+
+![alt text](image-13.png)
+
+同时，为了扩展到更多的系统，DGX-1 还可以通过 InfiniBand（IB）连接到更多的机器。
+
+2015年的时候，NVIDIA 就开始开发 NCCL ，并在年底的时候开源。在 DGX-1 上， hybrid cube-mesh 更适合 NCCL 的方法。 hybrid cube-mesh 中可以看到有 2 个环，如下图所示，其中深色和浅色是两个环。在集合通信时，两个环可以无阻塞的完成数据交换，最大限度地利用带宽。
+
+![alt text](image-14.png)
+
+
+
+
+## Power System S822LC 
+
+
+S822LC 是 IBM 推出的搭载 NVLink 的系统，其系统结构如下。每个 POWER 8 处理器包括有 2个 NVLink，可以直接与 P100 相连。
+
+![alt text](image-24.png)
+
+
+虽然现在有了 NVLink，但是所有 GPU 的初始化还是通过 PCIe 接口进行的，PCIe 还负责状态、电源管理等的一些带外通信。GPU 启动后，所有数据通信都使用 NVLink。
+
+![alt text](image-25.png)
 
