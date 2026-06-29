@@ -8,7 +8,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'NVLINK', link: '/Interconnect/nvlink/nvlink.md' },
+      { text: 'NVLink', link: '/Interconnect/nvlink/nvlink.md' },
 
     ],
 
@@ -35,7 +35,9 @@ export default defineConfig({
         {
           text: 'NVLink',
           items: [
-            { text: 'NVLink 1.0', link: '/Interconnect/nvlink/nvlink_1.md' }
+            { text: 'NVLink 1.0', link: '/Interconnect/nvlink/nvlink_1.md' },
+            { text: 'NVLink 2.0', link: '/Interconnect/nvlink/nvlink_2.md' }
+
           ]
         }
       ]
